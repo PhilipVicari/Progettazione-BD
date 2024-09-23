@@ -89,26 +89,24 @@ create table Assenza (
 -- ‘Pegasus’ ?
 SELECT  WP.nome, WP.inizio, WP.fine
 from WP, Progetto
-where Progetto.nome = 'Pegasus'
-
+where WP.progetto = Progetto.id and Progetto.nome = 'Pegasus'
 -- 2. Quali sono il nome, il cognome e la posizione degli strutturati che hanno almeno
 -- una attività nel progetto ‘Pegasus’, ordinati per cognome decrescente?
 SELECT Persona.nome, Persona.cognome, Persona.posizione
-from Persona, Progetto
-where Progetto.nome = 'Pegasus'
-ORDER by desc
+from AttivitaProgetto a, Persona s, Progetto p
+where a.persona = p.id 
+    and a.progetto = p.id 
+    and p.nome = 'Pegasus'
+ORDER by nome desc
 
 -- 3. Quali sono il nome, il cognome e la posizione degli strutturati che hanno più di
 -- una attività nel progetto ‘Pegasus’ ?
-SELECT Persona.nome, Persona.cognome, Persona.posizione
-from Persona, Progetto
-where Progetto.nome = 'Pegasus'
 
 -- 4. Quali sono il nome, il cognome e la posizione dei Professori Ordinari che hanno
 -- fatto almeno una assenza per malattia?
-SELECT Persona.nome, Persona.cognome, Persona.posizione, Assenza.tipo
-from Persona, Progetto, Assenza
-where posizione = 'Professore Ordinario' and Assenza.tipo = 'Malattia'
+SELECT distinct Persona.nome, Persona.cognome, Persona.posizione, Assenza.tipo
+from Persona s, Progetto p, Assenza a
+where s.posizione = 'Professore Ordinario' and a.tipo = 'Malattia'
 
 -- 5. Quali sono il nome, il cognome e la posizione dei Professori Ordinari che hanno
 -- fatto più di una assenza per malattia?
