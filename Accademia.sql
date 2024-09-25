@@ -92,16 +92,18 @@ from WP, Progetto
 where WP.progetto = Progetto.id and Progetto.nome = 'Pegasus'
 -- 2. Quali sono il nome, il cognome e la posizione degli strutturati che hanno almeno
 -- una attività nel progetto ‘Pegasus’, ordinati per cognome decrescente?
-SELECT Persona.nome, Persona.cognome, Persona.posizione
+SELECT distinct s.nome, s.cognome, s.posizione
 from AttivitaProgetto a, Persona s, Progetto p
-where a.persona = p.id 
+where a.persona = s.id 
     and a.progetto = p.id 
     and p.nome = 'Pegasus'
-ORDER by nome desc
+ORDER by s.cognome desc
 
 -- 3. Quali sono il nome, il cognome e la posizione degli strutturati che hanno più di
 -- una attività nel progetto ‘Pegasus’ ?
-
+SELECT *
+from AttivitaProgetto a1, AttivitaProgetto a2, progetto p,
+where a1.id
 -- 4. Quali sono il nome, il cognome e la posizione dei Professori Ordinari che hanno
 -- fatto almeno una assenza per malattia?
 SELECT distinct Persona.nome, Persona.cognome, Persona.posizione, Assenza.tipo
